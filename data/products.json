@@ -1,0 +1,16 @@
+[
+    {
+        "id": "1",
+        "title": "Clean Code",
+        "imageUrl": "https://m.media-amazon.com/images/I/71T7aD3EOTL._UF1000,1000_QL80_.jpg",
+        "description": "Clean Code by Robert C. Martin",
+        "price": "19.99"
+    },
+    {
+        "id": "2",
+        "title": "A Chair",
+        "imageUrl": "https://res.cloudinary.com/ff-cloudinary/image/upload/c_fill,w_3840,q_75,g_auto:subject,f_auto/products/a-chair-wood-base-6540/packshots/jr_6540_sunniva717_oak_v2",
+        "description": "Very comfortable chair.",
+        "price": "89.99"
+    }
+]
