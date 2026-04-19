@@ -1,9 +1,15 @@
-/* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
     background-color: #f4f7f6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 /* Header & Navigation */
@@ -36,6 +42,7 @@ body {
 /* Containers */
 .app-container {
     display: flex;
+    flex-direction: column;
     padding: 2rem;
     max-width: 1200px;
     margin: auto;
@@ -45,35 +52,57 @@ body {
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
 
 /* Sidebar */
 .filter-sidebar {
-    width: 250px;
+    width: 100%;
     background-color: #fff;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-right: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+.filter-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.filter-sidebar form {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .filter-group {
-    margin-bottom: 1rem;
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
 }
 
 .filter-group label {
     display: block;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
+    color: #555;
 }
 
 .filter-input {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1rem;
+}
+
+.filter-sidebar .btn-block {
+    width: auto;
+    padding: 0.6rem 2rem;
 }
 
 /* Product Grid */
@@ -84,11 +113,22 @@ body {
     gap: 1.5rem;
 }
 
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #888;
+    font-size: 1.2rem;
+}
+
 .product-item {
     background-color: #fff;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s;
 }
@@ -163,7 +203,8 @@ body {
     margin-top: 1rem;
 }
 
-.data-table th, .data-table td {
+.data-table th,
+.data-table td {
     padding: 1rem;
     border-bottom: 1px solid #ddd;
     text-align: left;
