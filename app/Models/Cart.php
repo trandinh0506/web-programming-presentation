@@ -4,8 +4,11 @@ namespace App\Models;
 
 class Cart
 {
-    public function __construct()
+    private Product $productModel;
+
+    public function __construct(Product $productModel)
     {
+        $this->productModel = $productModel;
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
@@ -30,6 +33,32 @@ class Cart
     public function getItems(): array
     {
         return $_SESSION['cart'];
+    }
+
+    public function getCartDetails(): array
+    {
+        $products = [];
+        foreach ($_SESSION['cart'] as $id => $quantity) {
+            $product = $this->productModel->getById((int)$id);
+            if ($product) {
+                $product['quantity'] = $quantity;
+                $product['subtotal'] = $product['price'] * $quantity;
+                $products[] = $product;
+            }
+        }
+        return $products;
+    }
+
+    public function getCartTotal(): float
+    {
+        $total = 0;
+        foreach ($_SESSION['cart'] as $id => $quantity) {
+            $product = $this->productModel->getById((int)$id);
+            if ($product) {
+                $total += $product['price'] * $quantity;
+            }
+        }
+        return $total;
     }
 
     public function clear()

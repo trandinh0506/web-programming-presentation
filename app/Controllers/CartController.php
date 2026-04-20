@@ -7,34 +7,18 @@ use App\Models\Cart;
 
 class CartController extends BaseController
 {
-    private Product $productModel;
     private Cart $cartModel;
 
-    public function __construct(Product $productModel, Cart $cartModel)
+    public function __construct(Cart $cartModel)
     {
-        $this->productModel = $productModel;
         $this->cartModel = $cartModel;
     }
 
     public function index()
     {
-        $items = $this->cartModel->getItems();
-        $products = [];
-        $total = 0;
-
-        foreach ($items as $id => $quantity) {
-            $product = $this->productModel->getById((int)$id);
-            if ($product) {
-                $product['quantity'] = $quantity;
-                $product['subtotal'] = $product['price'] * $quantity;
-                $products[] = $product;
-                $total += $product['subtotal'];
-            }
-        }
-
         $this->render('cart/index', [
-            'products' => $products,
-            'total' => $total
+            'products' => $this->cartModel->getCartDetails(),
+            'total' => $this->cartModel->getCartTotal()
         ]);
     }
 
@@ -66,22 +50,9 @@ class CartController extends BaseController
             $this->redirect('/cart');
         }
 
-        $items = $this->cartModel->getItems();
-        $products = [];
-        $total = 0;
-        foreach ($items as $id => $quantity) {
-            $product = $this->productModel->getById((int)$id);
-            if ($product) {
-                $product['quantity'] = $quantity;
-                $product['subtotal'] = $product['price'] * $quantity;
-                $products[] = $product;
-                $total += $product['subtotal'];
-            }
-        }
-
         $this->render('cart/checkout', [
-            'products' => $products,
-            'total' => $total
+            'products' => $this->cartModel->getCartDetails(),
+            'total' => $this->cartModel->getCartTotal()
         ]);
     }
 

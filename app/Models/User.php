@@ -27,4 +27,13 @@ class User
             'role' => $role
         ]);
     }
+
+    public function authenticate(string $username, string $password)
+    {
+        $user = $this->findByUsername($username);
+        if ($user && password_verify($password, $user['password'])) {
+            return $user;
+        }
+        return null;
+    }
 }

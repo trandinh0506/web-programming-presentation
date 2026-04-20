@@ -47,7 +47,7 @@ $container->set(User::class, function ($c) {
 });
 
 $container->set(Cart::class, function ($c) {
-    return new Cart();
+    return new Cart($c->get(Product::class));
 });
 
 $container->set(ProductController::class, function ($c) {
@@ -63,7 +63,7 @@ $container->set(AuthController::class, function ($c) {
 });
 
 $container->set(CartController::class, function ($c) {
-    return new CartController($c->get(Product::class), $c->get(Cart::class));
+    return new CartController($c->get(Cart::class));
 });
 
 // Initialize Router

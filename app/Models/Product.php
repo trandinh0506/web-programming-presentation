@@ -60,4 +60,31 @@ class Product
     {
         return $this->db->query("SELECT DISTINCT category FROM products WHERE category IS NOT NULL AND category != ''")->fetchAll();
     }
+
+    public function handleUpload(): ?string
+    {
+        if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            return null;
+        }
+
+        $uploadDir = __DIR__ . '/../../public/uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $filename = uniqid() . '_' . basename($_FILES['image']['name']);
+        $targetPath = $uploadDir . $filename;
+
+        // Check file type (basic)
+        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        if (in_array($ext, $allowed)) {
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
+                return $filename;
+            }
+        }
+
+        return null;
+    }
 }

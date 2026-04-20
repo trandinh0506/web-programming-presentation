@@ -19,9 +19,8 @@ class AuthController extends BaseController
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
 
-
-            $user = $this->userModel->findByUsername($username);
-            if ($user && password_verify($password, $user['password'])) {
+            $user = $this->userModel->authenticate($username, $password);
+            if ($user) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['user_role'] = $user['role'];
