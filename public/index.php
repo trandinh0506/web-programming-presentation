@@ -9,6 +9,7 @@ use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Cart;
 
 // Simple PSR-4 Autoloader
 spl_autoload_register(function ($class) {
@@ -45,6 +46,10 @@ $container->set(User::class, function ($c) {
     return new User($c->get(Database::class));
 });
 
+$container->set(Cart::class, function ($c) {
+    return new Cart();
+});
+
 $container->set(ProductController::class, function ($c) {
     return new ProductController($c->get(Product::class));
 });
@@ -58,7 +63,7 @@ $container->set(AuthController::class, function ($c) {
 });
 
 $container->set(CartController::class, function ($c) {
-    return new CartController($c->get(Product::class));
+    return new CartController($c->get(Product::class), $c->get(Cart::class));
 });
 
 // Initialize Router
@@ -81,6 +86,8 @@ $router->add('GET', '/admin/products/delete', AdminController::class, 'delete');
 $router->add('GET', '/cart', CartController::class, 'index');
 $router->add('POST', '/cart/add', CartController::class, 'add');
 $router->add('GET', '/cart/remove', CartController::class, 'remove');
+$router->add('GET', '/checkout', CartController::class, 'checkout');
+$router->add('POST', '/checkout', CartController::class, 'processCheckout');
 
 // Dispatch
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

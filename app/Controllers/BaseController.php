@@ -12,6 +12,18 @@ abstract class BaseController
         include __DIR__ . "/../Views/layout/footer.php";
     }
 
+    protected function isAuthenticated(): bool
+    {
+        return isset($_SESSION['user_id']);
+    }
+
+    protected function requireAuth()
+    {
+        if (!$this->isAuthenticated()) {
+            $this->redirect('/login');
+        }
+    }
+
     protected function redirect(string $url)
     {
         header("Location: {$url}");

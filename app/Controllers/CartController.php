@@ -3,23 +3,26 @@
 namespace App\Controllers;
 
 use App\Models\Product;
+use App\Models\Cart;
 
 class CartController extends BaseController
 {
     private Product $productModel;
+    private Cart $cartModel;
 
-    public function __construct(Product $productModel)
+    public function __construct(Product $productModel, Cart $cartModel)
     {
         $this->productModel = $productModel;
+        $this->cartModel = $cartModel;
     }
 
     public function index()
     {
-        $cart = $_SESSION['cart'] ?? [];
+        $items = $this->cartModel->getItems();
         $products = [];
         $total = 0;
 
-        foreach ($cart as $id => $quantity) {
+        foreach ($items as $id => $quantity) {
             $product = $this->productModel->getById((int)$id);
             if ($product) {
                 $product['quantity'] = $quantity;
@@ -37,29 +40,55 @@ class CartController extends BaseController
 
     public function add()
     {
+        $this->requireAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = (int)($_POST['id'] ?? 0);
             if ($id > 0) {
-                if (!isset($_SESSION['cart'])) {
-                    $_SESSION['cart'] = [];
-                }
-
-                if (isset($_SESSION['cart'][$id])) {
-                    $_SESSION['cart'][$id]++;
-                } else {
-                    $_SESSION['cart'][$id] = 1;
-                }
+                $this->cartModel->addItem($id);
             }
         }
-        $this->redirect('/');
+        $this->redirect('/cart');
     }
 
     public function remove()
     {
         $id = (int)($_GET['id'] ?? 0);
-        if ($id > 0 && isset($_SESSION['cart'][$id])) {
-            unset($_SESSION['cart'][$id]);
+        if ($id > 0) {
+            $this->cartModel->removeItem($id);
         }
         $this->redirect('/cart');
+    }
+
+    public function checkout()
+    {
+        $this->requireAuth();
+        if ($this->cartModel->isEmpty()) {
+            $this->redirect('/cart');
+        }
+
+        $items = $this->cartModel->getItems();
+        $products = [];
+        $total = 0;
+        foreach ($items as $id => $quantity) {
+            $product = $this->productModel->getById((int)$id);
+            if ($product) {
+                $product['quantity'] = $quantity;
+                $product['subtotal'] = $product['price'] * $quantity;
+                $products[] = $product;
+                $total += $product['subtotal'];
+            }
+        }
+
+        $this->render('cart/checkout', [
+            'products' => $products,
+            'total' => $total
+        ]);
+    }
+
+    public function processCheckout()
+    {
+        $this->requireAuth();
+        $this->cartModel->clear();
+        $this->render('cart/success');
     }
 }
