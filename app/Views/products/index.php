@@ -32,10 +32,10 @@
                     <img src="/uploads/<?php echo $product['image'] ?: 'placeholder.png'; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
                     <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                     <p class="price-tag">$<?php echo number_format($product['price'], 2); ?></p>
-                    <a href="/product?id=<?php echo $product['id']; ?>" class="btn">View Details</a>
-                    <form action="/cart/add" method="POST" style="display:inline;">
+                    <a href="/product?id=<?php echo $product['id']; ?>" class="btn btn-sm">View Details</a>
+                    <form action="/cart/add" method="POST" class="inline-form">
                         <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <button type="submit" class="btn btn-primary btn-md">Add to Cart</button>
                     </form>
                 </div>
             <?php endforeach; ?>

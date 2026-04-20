@@ -1,8 +1,8 @@
-<div class="app-container" style="justify-content: center; align-items: center; min-height: 60vh;">
-    <div class="page-wrapper" style="max-width: 400px;">
-        <h2 style="text-align: center;">Register</h2>
+<div class="app-container auth-wrapper">
+    <div class="page-wrapper auth-card">
+        <h2 class="text-center">Register</h2>
         <?php if (isset($error)): ?>
-            <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+            <p class="text-danger text-center"><?php echo $error; ?></p>
         <?php endif; ?>
         <form action="/register" method="POST">
             <div class="filter-group">
@@ -17,9 +17,9 @@
                 <label>Confirm Password:</label>
                 <input type="password" name="confirm_password" required class="filter-input">
             </div>
-            <button type="submit" class="btn btn-block" style="padding: 0.75rem;">Register</button>
+            <button type="submit" class="btn btn-block btn-md">Register</button>
         </form>
-        <p style="text-align: center; margin-top: 1rem;">
+        <p class="text-center mt-1">
             Already have an account? <a href="/login">Login here</a>
         </p>
     </div>

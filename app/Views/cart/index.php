@@ -24,20 +24,20 @@
                         <td><?php echo $p['quantity']; ?></td>
                         <td>$<?php echo number_format($p['subtotal'], 2); ?></td>
                         <td>
-                            <a href="/cart/remove?id=<?php echo $p['id']; ?>" style="color: red;">Remove</a>
+                            <a href="/cart/remove?id=<?php echo $p['id']; ?>" class="text-danger">Remove</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
-                    <tr style="font-size: 1.2rem; font-weight: bold;">
-                        <td colspan="3" style="text-align: right;">Total:</td>
+                    <tr class="font-lg font-bold">
+                        <td colspan="3" class="text-right">Total:</td>
                         <td>$<?php echo number_format($total, 2); ?></td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
-            <div style="margin-top: 2rem; text-align: right;">
+            <div class="mt-2 text-right">
                 <a href="/" class="btn">Continue Shopping</a>
                 <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
             </div>

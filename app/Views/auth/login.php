@@ -1,8 +1,8 @@
-<div class="app-container" style="justify-content: center; align-items: center; min-height: 60vh;">
-    <div class="page-wrapper" style="max-width: 400px;">
-        <h2 style="text-align: center;">Login</h2>
+<div class="app-container auth-wrapper">
+    <div class="page-wrapper auth-card">
+        <h2 class="text-center">Login</h2>
         <?php if (isset($error)): ?>
-            <p style="color: red; text-align: center;"><?php echo $error; ?></p>
+            <p class="text-danger text-center"><?php echo $error; ?></p>
         <?php endif; ?>
         <form action="/login" method="POST">
             <div class="filter-group">
@@ -13,7 +13,7 @@
                 <label>Password:</label>
                 <input type="password" name="password" required class="filter-input">
             </div>
-            <button type="submit" class="btn btn-block" style="padding: 0.75rem;">Login</button>
+            <button type="submit" class="btn btn-block btn-md">Login</button>
         </form>
     </div>
 </div>

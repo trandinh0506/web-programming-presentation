@@ -1,5 +1,5 @@
-<div class="app-container" style="flex-direction: column;">
-    <div class="page-wrapper" style="margin-bottom: 2rem;">
+<div class="app-container flex-column">
+    <div class="page-wrapper mb-2">
         <h1>Admin Dashboard</h1>
         <h3>Add New Product</h3>
         <form action="/admin/products/store" method="POST" enctype="multipart/form-data">
@@ -48,7 +48,7 @@
                     <td><?php echo htmlspecialchars($p['category']); ?></td>
                     <td>
                         <a href="/admin/products/edit?id=<?php echo $p['id']; ?>">Edit</a> | 
-                        <a href="/admin/products/delete?id=<?php echo $p['id']; ?>" style="color: red;">Delete</a>
+                        <a href="/admin/products/delete?id=<?php echo $p['id']; ?>" class="text-danger">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

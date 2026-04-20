@@ -1,9 +1,9 @@
 <div class="app-container">
     <div class="page-wrapper">
         <h1>Edit Product</h1>
-        <a href="/admin/dashboard" style="text-decoration: none; color: #333;">&larr; Back to Dashboard</a>
+        <a href="/admin/dashboard" class="no-underline color-dark">&larr; Back to Dashboard</a>
         
-        <form action="/admin/products/update" method="POST" enctype="multipart/form-data" style="margin-top: 1.5rem;">
+        <form action="/admin/products/update" method="POST" enctype="multipart/form-data" class="mt-1-5">
             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
             
             <div class="filter-group">
@@ -28,7 +28,7 @@
             
             <div class="filter-group">
                 <label>Current Image:</label><br>
-                <img src="/uploads/<?php echo $product['image'] ?: 'placeholder.png'; ?>" alt="Product Image" style="width: 100px; border-radius: 4px; margin-bottom: 0.5rem;"><br>
+                <img src="/uploads/<?php echo $product['image'] ?: 'placeholder.png'; ?>" alt="Product Image" class="img-thumbnail rounded-sm mb-1"><br>
                 <label>Change Image (optional):</label><br>
                 <input type="file" name="image">
             </div>

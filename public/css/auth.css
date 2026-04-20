@@ -1,0 +1,12 @@
+/* Auth Components */
+.auth-wrapper {
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.auth-card {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
